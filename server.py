@@ -21,7 +21,7 @@ def home():
 def process():
     data = request.get_json()
     result = get_response_from_llama(data)
-    return jsonify(result)
+    return jsonify(result)  
 
 #user files are sent here 
 @app.route('/upload', methods=['POST'])
