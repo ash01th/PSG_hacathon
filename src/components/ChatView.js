@@ -19,8 +19,8 @@ const ChatView = ({ chat, onSendMessage }) => {
     if (userInput.trim() === "") return;
 
     const newMessage = {
-      sender: "user",
-      text: userInput,
+      role: "user",
+      content: userInput,
     };
 
     // Add user message to chat history
@@ -34,7 +34,8 @@ const ChatView = ({ chat, onSendMessage }) => {
 
     // Make API call to fetch bot's response 
     try {
-      const response = await fetch("http://localhost:5000/process", {
+      console.log(chatHistory)
+      const response = await fetch("http://192.168.241.174:5000/process", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,8 +49,8 @@ const ChatView = ({ chat, onSendMessage }) => {
       if (response.ok) {
         const data = await response.json();
         const botResponse = {
-          sender: "bot",
-          text: data.response, // Response contains a 'response' field
+          role: "assistant",
+          content: data.response, // Response contains a 'response' field
         };
 
         // Add bot response to chat history
@@ -57,8 +58,8 @@ const ChatView = ({ chat, onSendMessage }) => {
         onSendMessage(botResponse); // Send bot response to parent (App.js)
       } else {
         const botResponse = {
-          sender: "bot",
-          text: "Sorry, I couldn't process your request at the moment.",
+          role: "assistant",
+          content: "Sorry, I couldn't process your request at the moment.",
         };
 
         // Add fallback response to chat history
@@ -68,8 +69,8 @@ const ChatView = ({ chat, onSendMessage }) => {
     } catch (error) {
       console.error("Error fetching bot response:", error);
       const botResponse = {
-        sender: "bot",
-        text: "Oops! Something went wrong. Please try again later.",
+        role: "assistant",
+        content: "Oops! Something went wrong. Please try again later.",
       };
 
       // Add error response to chat history
@@ -101,17 +102,17 @@ const ChatView = ({ chat, onSendMessage }) => {
         }}
       >
         {chatHistory.map((message, index) => (
-          <div key={index} style={{ marginBottom: "15px", lineHeight: "1.5" }}>
-            <strong
-              style={{
-                color: message.sender === "user" ? "#4CAF50" : "#009688",
-              }}
-            >
-              {message.sender === "user" ? "You" : "Bot"}:
-            </strong>
-            <p style={{ color: "#555", fontSize: "1em" }}>{message.text}</p>
-          </div>
-        ))}
+      <div key={index} style={{ marginBottom: "15px", lineHeight: "1.5" }}>
+        <strong
+          style={{
+            color: message.role === "user" ? "#4CAF50" : "#009688",
+          }}
+        >
+          {message.role === "user" ? "You" : "Assistant"}:
+        </strong>
+        <p style={{ color: "#555", fontSize: "1em" }}>{message.content}</p>
+      </div>
+    ))}
       </div>
 
       {/* Textbox and send button container */}

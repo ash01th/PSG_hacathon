@@ -3,7 +3,8 @@ import FileUpload from "./components/FileUpload";
 import ChatView from "./components/ChatView";
 
 const App = () => {
-  const [currentChat, setCurrentChat] = useState(null); // Store the current chat
+  const [currentChat, setCurrentChat] = useState({ messages: [] });
+
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh", fontFamily: "Arial, sans-serif" }}>
