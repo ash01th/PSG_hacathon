@@ -16,14 +16,25 @@ msg1=[
     },
     {
         "role": "user",
-        "content": "Explain the importance of fast language models",
-    }
+        "content": "what is two plus two?",
+    },
+     {
+        "role": "assistant",
+        "content": "two plus two is four do you need help with anything else?",
+    },
+    {
+        "role": "user",
+        "content": "what is four plus four?",
+    },
+
 ]
 
 # initilize model and get response
 def get_response_from_llama(msg):
+    print(msg)
     chat_completion = client.chat.completions.create(
     messages=msg,
     model="llama3-8b-8192",
     )
     return chat_completion.choices[0].message.content
+

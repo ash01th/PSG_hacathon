@@ -61,7 +61,7 @@ def count_tokens(text):
 #setting a threshold of 6000 tokens and checking if embedding is needed
 def optional_embedding(text):
     if count_tokens(text)<6000:
-        return {"text":text}
+        return {"text":"Text is within the token limit"}
     else:
         return {"embeddings":"N/A"}
 
