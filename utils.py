@@ -73,17 +73,17 @@ def split_text_into_chunks(text, file_name, chunk_size=5000, chunk_overlap=1000,
         separator=separator
     )
     chunks = splitter.split_text(text)
-    
+    return chunks
     # Ensure the directory exists
-    os.makedirs('chunk_store', exist_ok=True)
+   # os.makedirs('chunk_store', exist_ok=True)
     
     # Store each chunk as a JSON object in the specified folder
-    for i, chunk in enumerate(chunks):
+    """ for i, chunk in enumerate(chunks):
         chunk_data = {f"{file_name}_chunk_{i + 1}": chunk}
         with open(f'chunk_store/{file_name}_chunk_{i + 1}.json', 'w') as f:
             json.dump(chunk_data, f)
+    """
     
-    return chunks
 
 def create_embeddings(text,type):
     query_prompt_name = "s2p_query"
